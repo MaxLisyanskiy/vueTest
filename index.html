@@ -11,7 +11,27 @@
     <div id="app">
         <h1> {{title}} </h1>
         <input v-model="text" type="text">
-        <p> {{text}} </p>
+        <p> {{toLower}} </p>
+        <p> {{upperText}} </p>
+        <button @click="getUpperText">Click!</button>
+
+        <br><br><br>
+
+        <button @click="showContent = !showContent">Content's button</button>
+        <div v-if="showContent">
+            <p>Content</p>
+        </div>
+        <div>
+            <ul>
+                <li v-for="(user, index) in users">
+                    <p>
+                        {{index+1}}: {{user.name}}
+                    </p>
+                    <span>E-mail: {{user.email}}</span> <br>
+                    <span>Age: {{user.age}}</span>
+                </li>
+            </ul>
+        </div>
     </div>
 
     <script>
@@ -19,7 +39,24 @@
             el: '#app',
             data: {
                 title: 'Hey there',
-                text: ''
+                text: '',
+                upperText: '',
+                showContent: false,
+                users: [
+                    {name: 'max', email: 'max@mail.ru', age: 23},
+                    {name: 'dasha', email: 'dasha@mail.ru', age: 21},
+                    {name: 'oleg', email: 'oleg@mail.ru', age: 29},
+                ]
+            },
+            computed: {
+                toLower() {
+                    return this.text.toLowerCase();
+                }
+            },
+            methods: {
+                getUpperText() {
+                    this.upperText = this.text.toUpperCase();
+                }
             }
         })
     </script>
